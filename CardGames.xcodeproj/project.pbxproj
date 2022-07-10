@@ -13,6 +13,14 @@
 		CEBE8A98287A1B5400AC37C5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBE8A86287A1B5300AC37C5 /* ContentView.swift */; };
 		CEBE8A99287A1B5400AC37C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEBE8A87287A1B5400AC37C5 /* Assets.xcassets */; };
 		CEBE8A9A287A1B5400AC37C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEBE8A87287A1B5400AC37C5 /* Assets.xcassets */; };
+		CEBE8AA6287A1CA600AC37C5 /* CardGamesProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBE8AA5287A1CA600AC37C5 /* CardGamesProtocols.swift */; };
+		CEBE8AA7287A1CA600AC37C5 /* CardGamesProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBE8AA5287A1CA600AC37C5 /* CardGamesProtocols.swift */; };
+		CEBE8AA9287A209900AC37C5 /* Solitare.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBE8AA8287A209900AC37C5 /* Solitare.swift */; };
+		CEBE8AAA287A209900AC37C5 /* Solitare.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBE8AA8287A209900AC37C5 /* Solitare.swift */; };
+		CEBE8AAF287A3E9700AC37C5 /* PlayingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBE8AAE287A3E9700AC37C5 /* PlayingCard.swift */; };
+		CEBE8AB0287A3E9700AC37C5 /* PlayingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBE8AAE287A3E9700AC37C5 /* PlayingCard.swift */; };
+		CEBE8AB2287A426300AC37C5 /* PlayingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBE8AB1287A426300AC37C5 /* PlayingCardView.swift */; };
+		CEBE8AB3287A426300AC37C5 /* PlayingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBE8AB1287A426300AC37C5 /* PlayingCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +30,10 @@
 		CEBE8A8C287A1B5400AC37C5 /* CardGames.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGames.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEBE8A92287A1B5400AC37C5 /* CardGames.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardGames.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEBE8A94287A1B5400AC37C5 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		CEBE8AA5287A1CA600AC37C5 /* CardGamesProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardGamesProtocols.swift; sourceTree = "<group>"; };
+		CEBE8AA8287A209900AC37C5 /* Solitare.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solitare.swift; sourceTree = "<group>"; };
+		CEBE8AAE287A3E9700AC37C5 /* PlayingCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingCard.swift; sourceTree = "<group>"; };
+		CEBE8AB1287A426300AC37C5 /* PlayingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayingCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +57,8 @@
 		CEBE8A7F287A1B5300AC37C5 = {
 			isa = PBXGroup;
 			children = (
+				CEBE8AA4287A1C7B00AC37C5 /* ViewModels */,
+				CEBE8AA3287A1C1900AC37C5 /* Views */,
 				CEBE8A84287A1B5300AC37C5 /* Shared */,
 				CEBE8A93287A1B5400AC37C5 /* macOS */,
 				CEBE8A8D287A1B5400AC37C5 /* Products */,
@@ -76,6 +90,24 @@
 				CEBE8A94287A1B5400AC37C5 /* macOS.entitlements */,
 			);
 			path = macOS;
+			sourceTree = "<group>";
+		};
+		CEBE8AA3287A1C1900AC37C5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CEBE8AB1287A426300AC37C5 /* PlayingCardView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CEBE8AA4287A1C7B00AC37C5 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CEBE8AA5287A1CA600AC37C5 /* CardGamesProtocols.swift */,
+				CEBE8AA8287A209900AC37C5 /* Solitare.swift */,
+				CEBE8AAE287A3E9700AC37C5 /* PlayingCard.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,7 +208,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEBE8AAF287A3E9700AC37C5 /* PlayingCard.swift in Sources */,
+				CEBE8AB2287A426300AC37C5 /* PlayingCardView.swift in Sources */,
+				CEBE8AA9287A209900AC37C5 /* Solitare.swift in Sources */,
 				CEBE8A97287A1B5400AC37C5 /* ContentView.swift in Sources */,
+				CEBE8AA6287A1CA600AC37C5 /* CardGamesProtocols.swift in Sources */,
 				CEBE8A95287A1B5400AC37C5 /* CardGamesApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -185,7 +221,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEBE8AB0287A3E9700AC37C5 /* PlayingCard.swift in Sources */,
+				CEBE8AB3287A426300AC37C5 /* PlayingCardView.swift in Sources */,
+				CEBE8AAA287A209900AC37C5 /* Solitare.swift in Sources */,
 				CEBE8A98287A1B5400AC37C5 /* ContentView.swift in Sources */,
+				CEBE8AA7287A1CA600AC37C5 /* CardGamesProtocols.swift in Sources */,
 				CEBE8A96287A1B5400AC37C5 /* CardGamesApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
