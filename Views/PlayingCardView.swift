@@ -8,88 +8,94 @@
 import SwiftUI
 
 struct PlayingCardView: View {
-    @ScaledMetric(relativeTo: .largeTitle) private var padding = 40.0
-    
-    let type: CardType
-    let suit: SuitType
+    @StateObject var card: PlayingCard
+    let size: CGFloat = 10
     
     private var suitImage: some View {
-        Image(systemName: suit.image)
+        Image(systemName: card.suit.image)
             .resizable()
+            .frame(width: size, height: size)
             .aspectRatio(contentMode: .fit)
     }
     
     private var invisibleImage: some View {
-        Image(systemName: suit.image)
+        Image(systemName: card.suit.image)
             .resizable()
+            .frame(width: size, height: size)
             .aspectRatio(contentMode: .fit)
             .foregroundColor(.clear)
     }
     
     private var header: some View {
-        VStack {
-            Text(type.rawValue)
+        VStack(spacing: 0) {
+            Text(card.type.rawValue)
             if !isJoker {
-                Image(systemName: suit.image)
+                Image(systemName: card.suit.image)
             }
             Spacer()
         }
+        .font(Font.system(size: 5))
+        .padding([.top, .leading], 1)
     }
     
     private var outsideColumn: some View {
-        VStack {
+        VStack(spacing: 0) {
             if isFaceCard {
-                // Do Nothing
-            } else if isGreaterThan3 {
-                if isPosition1 {
-                    suitImage
-                    Spacer()
-                }
-                if isPosition2 {
-                    suitImage
-                    Spacer()
-                }
-                if isPosition3 {
-                    suitImage
-                        .rotationEffect(.radians(.pi))
-                    Spacer()
-                }
-                if  isPosition4 {
-                    suitImage
-                        .rotationEffect(.radians(.pi))
-                }
+                // Do nothing
+            } else if isGreaterThan8 {
+                suitImage
+                Spacer()
+                suitImage
+                Spacer()
+                suitImage.rotationEffect(.radians(.pi))
+                Spacer()
+                suitImage.rotationEffect(.radians(.pi))
             } else {
-                invisibleImage
+                image(isGreaterThan3)
+                Spacer()
+                image(isGreaterThan5)
+                Spacer()
+                image(isGreaterThan3).rotationEffect(.radians(.pi))
             }
         }
     }
     
     private var centerColumn: some View {
-        VStack {
-            if isGreaterThan3 {
+        VStack(spacing: 0) {
+            if isFaceCard {
+                Image(systemName: card.suit.image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            } else if isGreaterThan8 {
                 Spacer()
-            }
-            
-            if isPosition5 {
-                suitImage
+                image(isGreaterThan8)
                 Spacer()
-            }
-            
-            if isPosition6 {
-                suitImage
-            } else {
                 invisibleImage
-            }
-            
-            if isPosition7 {
                 Spacer()
-                suitImage
-                    .rotationEffect(.radians(.pi))
-            }
-            
-            if isGreaterThan3 {
+                image(isTen).rotationEffect(.radians(.pi))
                 Spacer()
+            } else if isGreaterThan5 {
+                Spacer()
+                image(isGreaterThan6)
+                Spacer()
+                image(isEight).rotationEffect(.radians(.pi))
+                Spacer()
+            } else {
+                image(isLessThan4)
+                Spacer()
+                image(isOdd)
+                Spacer()
+                image(isLessThan4).rotationEffect(.radians(.pi))
             }
+        }
+    }
+    
+    @ViewBuilder
+    private func image(_ show: Bool) -> some View {
+        if show {
+            suitImage
+        } else {
+            invisibleImage
         }
     }
     
@@ -102,7 +108,7 @@ struct PlayingCardView: View {
     }
     
     var body: some View {
-        HStack {
+        HStack(spacing: 0) {
             header
             
             if isJoker {
@@ -111,40 +117,48 @@ struct PlayingCardView: View {
                 Group {
                     outsideColumn
                     centerColumn
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
                     outsideColumn
                 }
-                .padding(.vertical, padding)
+                .padding(.vertical, 4)
             }
-                header
-                    .rotationEffect(.radians(.pi))
+            
+            header
+                .rotationEffect(.radians(.pi))
         }
-        .foregroundColor(suit.color)
-        .padding()
-        .cornerRadius(10)
+        .foregroundColor(card.suit.color)
         .font(.largeTitle)
+        .background(Color.white)
+        .cornerRadius(3)
+        .frame(width: 50, height: 75) // ratio w:h 1 : 5/3 or h:w 1 : 2/3
+        .padding(.horizontal, 2)
+        .shadow(radius: 1)
+        .overlay {
+            if !card.isFaceUp {
+                RoundedRectangle(cornerRadius: 3)
+                    .frame(width: 50, height: 75)
+                    .foregroundColor(.red)
+            }
+        }
     }
 }
 
 private extension PlayingCardView {
-    var isPosition7: Bool { (isEvenAndGreater7 || type == .three || type == .two) && !isFaceCard }
-    var isPosition6: Bool { isOddAndNot7 || isFaceCard }
-    var isPosition5: Bool { (isPosition7 || type == .seven) && !isFaceCard }
-    var isPosition4: Bool { isGreaterThan3 }
-    var isPosition3: Bool { isGreaterThan8 }
-    var isPosition2: Bool { isGreaterThan5 }
-    var isPosition1: Bool { isGreaterThan3 }
-    
-    var isJoker: Bool { type == .joker }
-    var isFaceCard: Bool { type.isRankHigher(than: .ten, style: .aceHigh) }
-    var isGreaterThan3: Bool { type.isRankHigher(than: .three) }
-    var isGreaterThan5: Bool { type.isRankHigher(than: .five) }
-    var isEvenAndGreater7: Bool { type.isEven() && type.isRankHigher(than: .seven) }
-    var isGreaterThan8: Bool { type.isRankHigher(than: .eight) }
-    var isOddAndNot7: Bool { type.isOdd() && type != .seven }
+    var isJoker: Bool { card.type == .joker }
+    var isFaceCard: Bool { card.type.isRankHigher(than: .ten, style: .aceHigh) }
+    var isGreaterThan3: Bool { card.type.isRankHigher(than: .three) }
+    var isGreaterThan5: Bool { card.type.isRankHigher(than: .five) }
+    var isGreaterThan6: Bool { card.type.isRankHigher(than: .six) }
+    var isGreaterThan8: Bool { card.type.isRankHigher(than: .eight) }
+    var isLessThan4: Bool { card.type.isRankLower(than: .four)}
+    var isOdd: Bool { card.type.isOdd() }
+    var isSeven: Bool { card.type == .seven }
+    var isEight: Bool { card.type == .eight }
+    var isTen: Bool { card.type == .ten }
 }
 
 struct PlayingCardViewPreviews: PreviewProvider {
     static var previews: some View {
-        PlayingCardView(type: .ace, suit: .heart)
+        PlayingCardView(card: PlayingCard(suit: .club, type: .nine))
     }
 }
